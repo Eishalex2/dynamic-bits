@@ -49,10 +49,29 @@ dotsArray.forEach(element => {
 })
 
 nextBtn.addEventListener('click', () => {
-  console.log(currentIndex);
   changeImage('next');
 });
 
 prevBtn.addEventListener('click', () => {
   changeImage('prev');
-})
+});
+
+function changeSlidesAutomatically() {
+  for (let i=0; i < totalSlides; i++) {
+    slides[i].classList.remove('showing');
+  }
+  for (let i = 0; i < totalSlides; i++) {
+    dots[i].classList.remove('active');
+  }
+  
+  currentIndex++;
+  if (currentIndex > totalSlides) {
+    currentIndex = 1;
+  };
+  slides[currentIndex-1].classList.add('showing');
+  dots[currentIndex-1].classList.add('active');
+
+  setTimeout(changeSlidesAutomatically, 5000);
+}
+
+changeSlidesAutomatically();
